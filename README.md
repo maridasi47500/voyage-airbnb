@@ -1,4 +1,5 @@
-- voyante airbnb
+- voyage airbnb
+- gestion du voyage (depenses)
 
 - pour des intrument de musique(telecharger des instrument de musique)
 ```
