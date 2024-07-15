@@ -1,5 +1,6 @@
 - voyage airbnb
 - gestion du voyage (depenses)
+- mois par mois ville par ville, visiter
 
 - pour des intrument de musique(telecharger des instrument de musique)
 ```
@@ -19,5 +20,4 @@ $ python3 addcountry.py
 $ sh mysite.sh
 ```
 - visit http://localhost:8080
-# performing-arts
 # voyage-airbnb
