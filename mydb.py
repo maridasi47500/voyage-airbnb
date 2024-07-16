@@ -4,7 +4,7 @@ from post import Post
 from job import Job
 from song import Song
 from chercherimage import Chercherimage
-from sing import Sing
+from depense import Depense
 class Mydb():
   def __init__(self):
     print("hello")
@@ -14,4 +14,4 @@ class Mydb():
     self.Song=Song()
     self.Post=Post()
     self.Chercherimage=Chercherimage
-    self.Sing=Sing()
+    self.Depense=Depense()
