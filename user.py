@@ -17,11 +17,8 @@ class User(Model):
         username text,
         country_id text,
         sex text,
-        job text,
         phone text,
         email text,
-lat text,
-lon text,
             password text
                     );""")
         self.con.commit()
@@ -31,17 +28,6 @@ lon text,
 
         row=self.cur.fetchall()
         return row
-    def updatelocation(self,latitude,longitude,myid):
-
-        self.cur.execute("update user set latitude = ?, longitude = ? where id = ?",(latitude, longitude, myid,))
-
-        self.con.commit()
-        job=self.cur.lastrowid
-        self.cur.execute("select * from user where id = ?",(myid,))
-        job1=self.cur.fetchone()
-        print(dict(job1))
-        
-        return job1["latitude"] == latitude and job1["longitude"] == longitude
     def deletebyid(self,myid):
 
         self.cur.execute("delete from user where id = ?",(myid,))
@@ -94,7 +80,7 @@ lon text,
         try:
             if params["password"] == params["passwordconfirmation"]:
                  del myhash["passwordconfirmation"]
-                 self.cur.execute("insert into user (lat,lon,job,sex,username,email,country_id,phone,password) values (:lat,:lon,:job,:sex,:username,:email,:country_id,:phone,:password)",myhash)
+                 self.cur.execute("insert into user (sex,username,email,country_id,phone,password) values (:sex,:username,:email,:country_id,:phone,:password)",myhash)
                  self.con.commit()
                  myid=self.cur.lastrowid
 

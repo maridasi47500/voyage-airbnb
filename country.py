@@ -12,8 +12,11 @@ class Country(Model):
         id integer primary key autoincrement,
         name text,
             phone text,
-            unicode text
-                    );""")
+            unicode text,
+            currency text,
+            code text,
+            timezone text
+    , MyTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP                );""")
         self.con.commit()
         #self.con.close()
     def getall(self):
@@ -51,7 +54,7 @@ class Country(Model):
         print(myhash,myhash.keys())
         myid=None
         try:
-          self.cur.execute("insert into country (name,phone,unicode) values (:name,:phone,:unicode)",myhash)
+          self.cur.execute("insert into country (name,phone,unicode,currency,code,timezone) values (:name,:phone,:unicode,:currency,:code,:timezone)",myhash)
           self.con.commit()
           myid=str(self.cur.lastrowid)
         except Exception as e:

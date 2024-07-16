@@ -1,0 +1,28 @@
+<h3>ajouter une depense</h3>
+<form action="/createdepense" method="post">
+	<input tyoe="hidden" name="user1_id" value="<%=session[]%>" />
+	<div class="field">
+		<label for="user_depense">
+			pays de l'utilisateur
+		</label>
+		<select required id="user_depense" name="pays2_id">
+			                                                                <option value="">sélectionnez un pays</option>
+											                                                                                    <%=render_collection(collection=db.Country.getall(), partial='welcome/_depense.html', as_='pays')%>
+																					                                                                                                </select>
+	</div>
+	<div class="field">
+		<label for="user_somme">
+			somme (<%=db.User.getbyidcountry(session["user_id"])[""]%>)
+		</label>
+		<input tyoe="number" name="somme" value="" id="user_somme" />
+	</div>
+	<div class="field">
+		<label for="user_ckoi">
+			c koi/c ki
+		</label>
+		<textarea name="ckoi" id="user_ckoi"></textarea>
+	</div>
+	<div class="actions">
+		<input tyoe="submit" name="valider" value="valider" />
+	</div>
+</form>

@@ -1,93 +1,61 @@
 <h2>s'inscrire</h2>
 <form method="post" action="/save_user">
-									    <input id="membre_lat" type="hidden" name="lat" />
-									    <input id="membre_lon" type="hidden" name="lon" />
 <table>
 <tr>
-<td class="field ">
-	<label for="user_job_designer" >job</label>
-
-	<select id="user_job_designer" name="job">
-		    <%=render_collection(collection=db.Job.getall(), partial='user/_job.html', as_='job')%>
-
-	</select>
-
-</td>
-</tr>
-<tr>
-<td class="field ">
-
-									    <input checked id="user_sex_feminin" type="radio" name="sex" value="f"/>
-	<label for="user_sex_feminin" >sex feminin</label>
-</td>
-</tr>
-<tr>
-<td class="field ">
-
-									    <input id="user_sex_masculin" type="radio" name="sex" value="m"/>
-	<label for="user_sex_masculin" >sex masculin</label>
-</td>
-</tr>
-
-<tr>
-<td class="field phone_fields">
-	<label for="email_user" >email</label>
-
-
-<input id="email_user" type="email" name="email"/>
+<td rowspan="10"><img id="mypic" src=""/><br>
+my pic
+<input type="file" name="mypic"/>
+<br>
+name
+<input type="text" name="username"/>
 
 </td>
 </tr>
 <tr>
-<td class="field phone_fields">
-	<label for="pays_telephone" hidden="true">pays du numéro de téléphone</label>
-	<label for="numero_telephone" >numéro de téléphone</label>
+	<td class="field phone_fields">
+		        <label for="pays_telephone" hidden="true">pays du numéro de téléphone</label>
+			        <label for="numero_telephone" >numéro de téléphone</label>
 
-	<select required id="pays_telephone" name="country_id">
-		<option value="">sélectionnez un pays</option>
-		    <%=render_collection(collection=db.Country.getall(), partial='user/_pays.html', as_='pays')%>
-	</select>
+				        <select required id="pays_telephone" name="country_id">
+						                <option value="">sélectionnez un pays</option>
+								                    <%=render_collection(collection=db.Country.getall(), partial='user/_pays.html', as_='pays')%>
+										            </select>
 
-<input id="numero_telephone" type="number" required name="phone"/>
+											    <input id="numero_telephone" type="number" required name="phone"/>
+
+	</td>
+<td colspan="2">gender
+<select name="gender">
+	<option value="f">F</option>
+	<option value="m">M</option>
+</select>
 
 </td>
 </tr>
 <tr>
-<td class="field ">
-	<label for="user_username" >pseudo</label>
-									    <input id="user_username" type="text" name="username"/>
+</tr>
+<tr>
+<td colspan="2">Email
+<input type="text" name="email"/>
+
 </td>
 </tr>
 <tr>
-<td id="someurl" class="field phone_fields">
-</td>
 </tr>
 <tr>
-<td >
-        password
+</tr>
+
+<tr>
+<td>
+	password 
 <input type="password" name="password"/>
-</td>
-</tr>
-<tr>
-
-<td >
-        password confirmation
-<input type="password" name="passwordconfirmation"/>
-</td>
-</tr>
-<tr colspan="2">
-<td >
-
-<input type="submit" value="se connecter" name="seconnecter"/>
+<br>
+	password ocnfirmation
+<input type="password" name="password_confirmation"/>
+<br>
+<input type="submit" name="envoyer" value="envoyer"/>
 </td>
 </tr>
 </table>
+</table>
 </form>
-<div id="overlay">
-<div id="text">
-	<p>kel est votre localisation svp?</p>
-	<div id="map"></div>
-	<button type="button" onclick="overlay.style.display='none';">fermer</button>
-
-</div>
-</div>

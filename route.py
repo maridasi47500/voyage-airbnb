@@ -16,7 +16,7 @@ from lignecommande import Lignecommande
 class Route():
     def __init__(self):
         self.dbUsers=User()
-        self.Program=Directory("voyante airbnb")
+        self.Program=Directory("voyage ville par ville mois par mois")
         self.Program.set_path("./")
         self.mysession={"notice":None,"email":None,"name":None}
         self.render_figure=RenderFigure(self.Program)
@@ -82,16 +82,8 @@ class Route():
         self.render_figure.set_param("bon",random.choice(["bonnes","mauvaises"]))
 
         return self.render_figure.render_figure("welcome/profil.html")
-    def miroir(self,search):
-        return self.render_figure.render_figure("welcome/miroir.html")
-    def ecoutermusic(self,search):
-        self.render_figure.set_param("job",random.choice(self.db.Job.getall()))
-        return self.render_figure.render_figure("welcome/ecoutermusic.html")
-    def voir(self,search):
-        self.render_figure.set_param("lat",search["lat"][0])
-        self.render_figure.set_param("lon",search["lon"][0])
-        self.render_figure.set_param("post",search["post"][0])
-        return self.render_figure.render_figure("welcome/voir.html")
+    def adddepense(self,search):
+        return self.render_figure.render_figure("welcome/adddepense.html")
     def welcome(self,search):
         return self.render_figure.render_figure("welcome/index.html")
     def getenregistrement(self,search):
@@ -337,7 +329,7 @@ class Route():
         return self.render_figure.render_figure("ajouter/notebook.html")
 
     def save_user(self,params={}):
-        myparam=self.get_post_data()(params=("lat","lon","sex","username","email","country_id","phone","password","passwordconfirmation","job"))
+        myparam=self.get_post_data()(params=("sex","username","email","country_id","phone","password","passwordconfirmation"))
         self.user=self.dbUsers.create(myparam)
         if self.user["user_id"]:
             print("user user1")
@@ -395,10 +387,7 @@ class Route():
             path=path.split("?")[0]
             print("link route ",path)
             ROUTES={
-            '^/profil$': self.profil,
-            '^/miroir$': self.miroir,
-            '^/music$': self.ecoutermusic,
-            '^/voir$': self.voir,
+            '^/adddepense$': self.adddepense,
             '^/aboutme$': self.aboutme,
             '^/sign_in$': self.signin,
             '^/sign_up$': self.signup,
