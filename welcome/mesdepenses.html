@@ -1,0 +1,2 @@
+<h1>mes deoebses</h1>
+<%=render_collection(collection=db.Depense.getallbyuserid(session["user_id"]), partial='welcome/_depense.html', as_='depense')%>

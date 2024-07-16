@@ -23,6 +23,11 @@ class User(Model):
                     );""")
         self.con.commit()
         #self.con.close()
+    def getbyidcountry(self,myid):
+        self.cur.execute("select user.*,country.currency from user left join country on country.id = user.country_id where user.id = ?",(myid,))
+
+        row=self.cur.fetchall()
+        return row
     def getall(self):
         self.cur.execute("select * from user")
 

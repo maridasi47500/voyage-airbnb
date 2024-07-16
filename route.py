@@ -150,18 +150,9 @@ class Route():
         print("hello action")
         print("hello action")
         return self.render_figure.render_figure("welcome/aboutme.html")
+    def mesdepenses(self,search):
+        return self.render_figure.render_figure("welcome/mesdepenses.html")
     def hello(self,search):
-        print("hello action")
-        print("hello action")
-        cards=[]
-        x=127137
-        while x < 127199:
-            cards.append("&#"+str(x)+";")
-            x+=1
-
-        self.render_figure.set_param("avenir",random.choice(["bon","mauvais"]))
-        self.render_figure.set_param("cards"," ".join(random.sample(cards,4)))
-        self.render_figure.set_param("numero",random.choice(["&#9858;","&#9860;","&#9861;","&#9859;","&#9857;","&#9856;"]))
         print("hello action")
         return self.render_figure.render_figure("welcome/index.html")
     def delete_user(self,params={}):
@@ -328,6 +319,19 @@ class Route():
     def addnotebook(self,search):
         return self.render_figure.render_figure("ajouter/notebook.html")
 
+    def createdeoense(self,params={}):
+        myparam=self.get_post_data()(params=("user1_id","pays2_id","ckoi","somme"))
+        self.user=self.dbUsers.create(myparam)
+        if self.user["depense_id"]:
+            print("user user1")
+            self.set_notice("votre depense a été ajoutée")
+            self.set_json("{\"redirect\":\"/mesdepenses\"}")
+            return self.render_figure.render_json()
+        else:
+            print("user user Non")
+            self.set_notice("erreur pour créer votre depense ")
+            self.set_json("{\"redirect\":\"/\"}")
+            return self.render_figure.render_json()
     def save_user(self,params={}):
         myparam=self.get_post_data()(params=("sex","username","email","country_id","phone","password","passwordconfirmation"))
         self.user=self.dbUsers.create(myparam)
@@ -387,6 +391,7 @@ class Route():
             path=path.split("?")[0]
             print("link route ",path)
             ROUTES={
+            '^/mesdepenses$': self.mesdepenses,
             '^/adddepense$': self.adddepense,
             '^/aboutme$': self.aboutme,
             '^/sign_in$': self.signin,
