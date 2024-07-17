@@ -16,6 +16,7 @@ class User(Model):
         id integer primary key autoincrement,
         username text,
         country_id text,
+        mypic text,
         sex text,
         phone text,
         email text,
@@ -26,7 +27,7 @@ class User(Model):
     def getbyidcountry(self,myid):
         self.cur.execute("select user.*,country.currency from user left join country on country.id = user.country_id where user.id = ?",(myid,))
 
-        row=self.cur.fetchall()
+        row=self.cur.fetchone()
         return row
     def getall(self):
         self.cur.execute("select * from user")
@@ -85,7 +86,7 @@ class User(Model):
         try:
             if params["password"] == params["passwordconfirmation"]:
                  del myhash["passwordconfirmation"]
-                 self.cur.execute("insert into user (sex,username,email,country_id,phone,password) values (:sex,:username,:email,:country_id,:phone,:password)",myhash)
+                 self.cur.execute("insert into user (mypic,sex,username,email,country_id,phone,password) values (:mypic,:sex,:username,:email,:country_id,:phone,:password)",myhash)
                  self.con.commit()
                  myid=self.cur.lastrowid
 

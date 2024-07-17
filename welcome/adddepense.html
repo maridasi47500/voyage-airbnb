@@ -1,6 +1,6 @@
 <h3>ajouter une depense</h3>
 <form action="/createdepense" method="post">
-	<input tyoe="hidden" name="user1_id" value="<%=session[]%>" />
+	<input type="hidden" name="user1_id" value="<%=session["user_id"]%>" />
 	<div class="field">
 		<label for="user_depense">
 			pays de l'utilisateur
@@ -14,7 +14,8 @@
 		<label for="user_somme">
 			somme (<%=db.User.getbyidcountry(session["user_id"])["currency"]%>)
 		</label>
-		<input tyoe="number" name="somme" value="" id="user_somme" />
+		<input type="number" name="somme" value="" id="user_somme" />
+
 	</div>
 	<div class="field">
 		<label for="user_ckoi">
@@ -23,6 +24,6 @@
 		<textarea name="ckoi" id="user_ckoi"></textarea>
 	</div>
 	<div class="actions">
-		<input tyoe="submit" name="valider" value="valider" />
+		<input type="submit" name="valider" value="valider" />
 	</div>
 </form>

@@ -27,6 +27,10 @@ class Monnaie(Model):
         job=self.cur.fetchall()
         self.con.commit()
         return None
+    def getbyname(self,myid,myid2):
+        self.cur.execute("select * from monnaie where monnaie1 = ? and monnaie2 = ?",(myid,myid2))
+        row=(self.cur.fetchone())
+        return row
     def getbyid(self,myid):
         self.cur.execute("select * from monnaie where id = ?",(myid,))
         row=dict(self.cur.fetchone())

@@ -1,4 +1,4 @@
-<h1>mes deoebses</h1>
+<h1>mes depenses</h1>
 <table>
 <%=render_collection(collection=db.Depense.getallbyuserid(session["user_id"]), partial='welcome/_madepense.html', as_='depense')%>
 </table>

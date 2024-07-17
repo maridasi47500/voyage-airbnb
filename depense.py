@@ -3,6 +3,7 @@ import sqlite3
 import sys
 import re
 from model import Model
+from monnaie import Monnaie
 class Depense(Model):
     def __init__(self):
         self.con=sqlite3.connect(self.mydb)
@@ -16,6 +17,7 @@ class Depense(Model):
             ckoi text
     , MyTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP                );""")
         self.con.commit()
+        self.dbMonnaie=Monnaie()
         #self.con.close()
     def getallbyuserid(self,myid):
         self.cur.execute("select depense.*,country.currency as currency,monpays.currency as monpayscurrency,monpays.name as monpaysname, country.name paysname from depense left join user on user.id = depense.user1_id left join country monpays on monpays.id = user.country_id left join country on country.id = depense.pays2_id where depense.user1_id = ?",(myid,))
@@ -41,6 +43,9 @@ class Depense(Model):
         return row
     def create(self,params):
         print("ok")
+        self.cur.execute("select country.* from country left join monnaie on country.currency like '%'+monnaie.monnaie1+'%' and (select c.currency from country c left join user u on u.country_id = c.id where u.id = ?) like '%'+monnaie2+'%' group by monnaie.id having country.id = ?",(params["user1_id"],params["pays2_id"],))
+        xxx=self.cur.fetchall()
+        print("telecharger la monnaie?"+("oui" if len(xxx) else "non"))
         myhash={}
         for x in params:
             if 'confirmation' in x:
@@ -64,7 +69,16 @@ class Depense(Model):
           print("my error"+str(e))
         azerty={}
         azerty["depense_id"]=myid
-        azerty["notice"]="votre depense a été ajouté"
+        azerty["notice"]="votre depense a été ajouté"+(". telecharger la monnaie?"+("non" if len(xxx) > 0 else "oui"))
+        monnaie1=""
+        monnaie2=""
+        if len(xxx) == 0 or !xxx:
+            print(". telecharger la monnaie?"+("non" if len(xxx) > 0 else "oui"))
+            self.execute("select country.currency left join user on user.country_id = country.id where user.id = ?",(params["user1_id"],))
+            monnaie1=self.cur.fetchone()["currency"]
+            self.execute("select country.currency where country.id = ?",(params["user2_id"],))
+            monnaie2=self.cur.fetchone()["currency"]
+            #telecharger la monnaie
         return azerty
 
 
