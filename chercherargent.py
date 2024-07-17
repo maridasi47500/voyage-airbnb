@@ -6,22 +6,22 @@ import urllib
 from country import Country
 from monnaie import Monnaie
 dbMonnaie=Monnaie()
+import json
+
 
 class Chercherargent():
-    def __init__(self,monnaie1, monnaie2):
-        q="1 "+monnaie1+" to "+monnaie2
-       self.someparams={"q":q}
-       print(q,"q")
+    def __init__(self,monnaie1 = "", monnaie2 = ""):
+       self.someparams={"Amount":"1","From":monnaie1,"To":monnaie2}
+       print(self.someparams)
     def search(self):
-       html = requests.get("https://www.google.com/search", params=self.someparams)
+       html = requests.get("https://www.xe.com/fr/currencyconverter/convert/", params=self.someparams)
        soup = BeautifulSoup(html.text, 'html.parser')
-       malist=soup.select("curr_totxt")
+       k=soup.select("table td")[1]
        wow=[]
        ye={}
-       for k in malist:
-           ye={}
-           ye["value"]=k.get_text()
-           wow.append(ye)
+       ye={}
+       ye["value"]=k.get_text().split(" ")[0]
+       wow.append(ye)
        return wow
     def dlpic(self):
        ok=self.search()
@@ -45,14 +45,24 @@ dbCountry=Country()
 pays1=""
 pays2=""
 value=""
-for x in dbCountry.getall():
-  try:
-    pays1=x["currency"].split(", ")[1].split(")")[0]
-  except:
-    continue
-  for y in dbCountry.getall():
-    try:
-      pays2=y["currency"].split(", ")[1].split(")")[0]
-      dbMonnaie.create({"monnaie1":pays1,"monnaie2":pays2,"value":value})
-    except:
-      continue
+azerty=""
+wow1=[]
+#for x in dbCountry.getall():
+#  try:
+#    pays1=x["currency"].split(", ")[1].split(")")[0]
+#  except:
+#    print("erreur",pays1,pays2)
+#    continue
+#  for y in dbCountry.getall():
+#    try:
+#      pays2=y["currency"].split(", ")[1].split(")")[0]
+#      azerty=Chercherargent(pays1,pays2).search()
+#      print(azerty)
+#      value=azerty[0]["value"]
+#      wow1.append({"monnaie1":pays1,"monnaie2":pays2,"value":value})
+#      dbMonnaie.create({"monnaie1":pays1,"monnaie2":pays2,"value":value})
+#    except Exception as e:
+#      print("erreur",pays1,pays2,e)
+#      continue
+#with open('public/argent.json', 'w') as f:
+#    json.dump({"monnaies":wow1},f)
