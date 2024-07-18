@@ -1,11 +1,15 @@
 <tr>
 	<td>
-		<%=depense["monpayscurrency"]%>
+		<%=depense["monpayscurrency"].split(", ")[1].split(")")[0]%>
 		<%=depense["somme"]%>
+
 	</td>
 	<td>
-		<%=depense["currency"]%>
-	ma somme 	
+
+		<%=depense["currency"].split(", ")[1].split(")")[0]%>
+
+		<%=float(depense["mavaleur"].replace(",","."))*float(depense["somme"])%>
+
 	</td>
 	<td>
 		<%=depense["ckoi"]%>

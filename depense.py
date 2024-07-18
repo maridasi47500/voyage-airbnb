@@ -4,6 +4,7 @@ import sys
 import re
 from model import Model
 from monnaie import Monnaie
+from chercherargent import Chercherargent
 class Depense(Model):
     def __init__(self):
         self.con=sqlite3.connect(self.mydb)
@@ -20,7 +21,7 @@ class Depense(Model):
         self.dbMonnaie=Monnaie()
         #self.con.close()
     def getallbyuserid(self,myid):
-        self.cur.execute("select depense.*,country.currency as currency,monpays.currency as monpayscurrency,monpays.name as monpaysname, country.name paysname from depense left join user on user.id = depense.user1_id left join country monpays on monpays.id = user.country_id left join country on country.id = depense.pays2_id where depense.user1_id = ?",(myid,))
+        self.cur.execute("select monnaie.value as mavaleur,depense.*,country.currency as currency,monpays.currency as monpayscurrency,monpays.name as monpaysname, country.name paysname from depense left join user on user.id = depense.user1_id left join country monpays on monpays.id = user.country_id left join country on country.id = depense.pays2_id left outer join monnaie on monpays.currency like '%' || monnaie.monnaie1 ||'%' and country.currency like '%' || monnaie.monnaie2 || '%'  where depense.user1_id = ?",(myid,))
 
         row=self.cur.fetchall()
         return row
@@ -72,12 +73,15 @@ class Depense(Model):
         azerty["notice"]="votre depense a été ajouté"+(". telecharger la monnaie?"+("non" if len(xxx) > 0 else "oui"))
         monnaie1=""
         monnaie2=""
-        if len(xxx) == 0 or !xxx:
+        value=""
+        if len(xxx) == 0 or xxx is None:
             print(". telecharger la monnaie?"+("non" if len(xxx) > 0 else "oui"))
-            self.execute("select country.currency left join user on user.country_id = country.id where user.id = ?",(params["user1_id"],))
-            monnaie1=self.cur.fetchone()["currency"]
-            self.execute("select country.currency where country.id = ?",(params["user2_id"],))
-            monnaie2=self.cur.fetchone()["currency"]
+            self.cur.execute("select country.currency from country left join user on user.country_id = country.id where user.id = ?",(params["user1_id"],))
+            monnaie1=self.cur.fetchone()["currency"].split(", ")[1].split(")")[0]
+            self.cur.execute("select country.currency from country where country.id = ?",(params["pays2_id"],))
+            monnaie2=self.cur.fetchone()["currency"].split(", ")[1].split(")")[0]
+            value=Chercherargent(monnaie1,monnaie2).search()[0]["value"]
+            Monnaie().create({"monnaie1":monnaie1,"monnaie2":monnaie2,"value":value})
             #telecharger la monnaie
         return azerty
 
