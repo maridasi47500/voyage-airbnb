@@ -15,6 +15,49 @@
 		<%=depense["ckoi"]%>
 	</td>
 	<td>
-		<%=depense["MyTimeStamp"]%>
+		<%timezone=depense["monpaystimezone"]%>
+		<%minstr = int(timezone.split(":")[1] if len(timezone.split(":")) > 1 else "0")%>
+
+		<%hey="+" if "+" in timezone else "-"%>
+		<%heurestr = int(timezone.split(":")[0].replace(hey,""))%>
+		heure <%=depense["nommonpays"]%>
+		<%time_str=depense["MyTimeStamp"]%>
+		<%date_format_str = '%d/%m/%Y %H:%M:%S.%f'%>
+		<%date_format_str = '%Y-%m-%d %H:%M:%S'%>
+		<%# create datetime object from timestamp string%>
+		<%given_time = datetime.strptime(time_str, date_format_str)%>
+		<%print('Given timestamp: ', given_time)%>
+
+		<%# Add 15 minutes to datetime object%>
+		<%final_time = given_time + timedelta(minutes=minstr,hours=heurestr) if hey == "+" else given_time - timedelta(minutes=minstr,hours=heurestr)%>
+		<%print('Final Time (timezone minutes after given time ): ', final_time)%>
+		<%# Convert datetime object to string in specific format%>
+		<%final_time_str = final_time.strftime('%d/%m/%Y %H:%M:%S')%>
+		<%print('Final Time as string object: ', final_time_str)%>
+		<%=final_time_str%>
+
+	</td>
+	<td>
+		<%timezone=depense["timezone"]%>
+		<%minstr = int(timezone.split(":")[1] if len(timezone.split(":")) > 1 else "0")%>
+
+		<%hey="+" if "+" in timezone else "-"%>
+		<%heurestr = int(timezone.split(":")[0].replace(hey,""))%>
+		heure <%=depense["nompays"]%>
+		<%time_str=depense["MyTimeStamp"]%>
+		<%date_format_str = '%d/%m/%Y %H:%M:%S.%f'%>
+		<%date_format_str = '%Y-%m-%d %H:%M:%S'%>
+		<%# create datetime object from timestamp string%>
+		<%given_time = datetime.strptime(time_str, date_format_str)%>
+		<%print('Given timestamp: ', given_time)%>
+
+		<%# Add 15 minutes to datetime object%>
+		<%final_time = given_time + timedelta(minutes=minstr,hours=heurestr) if hey == "+" else given_time - timedelta(minutes=minstr,hours=heurestr)%>
+		<%print('Final Time (timezone minutes after given time ): ', final_time)%>
+		<%# Convert datetime object to string in specific format%>
+		<%final_time_str = final_time.strftime('%d/%m/%Y %H:%M:%S')%>
+		<%print('Final Time as string object: ', final_time_str)%>
+		<%=final_time_str%>
+
 	</td>
 </tr>
