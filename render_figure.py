@@ -5,8 +5,9 @@ import os
 from mydb import Mydb
 import traceback
 import sys
-import datetime
 from datetime import date
+from datetime import datetime
+from datetime import timedelta
 import random
 class RenderFigure():
     def __init__(self,program):
@@ -38,7 +39,7 @@ class RenderFigure():
     def render_body(self):
         try:
           mystr=""
-          loc={"json":json,"notice":self.session["notice"],"db":Mydb(),"session": self.session,"random":random,"render_collection": self.render_collection,"params":self.params,"getparams": self.getparams,"Fichier":Fichier,"date":date,"datetime":datetime}
+          loc={"timedelta":timedelta,"json":json,"notice":self.session["notice"],"db":Mydb(),"session": self.session,"random":random,"render_collection": self.render_collection,"params":self.params,"getparams": self.getparams,"Fichier":Fichier,"date":date,"datetime":datetime}
           for n in self.params:
               loc[n]=self.params[n]
           for j in self.body.split("<%"):
@@ -84,7 +85,7 @@ class RenderFigure():
             k=[]
             paspremier=False
             ligne=0
-            loc={"db":Mydb(),"paspremier":False,as_: "","index":"",  "params": self.params,"render_collection":self.render_collection,"date":date,"datetime":datetime}
+            loc={"timedelta":timedelta,"db":Mydb(),"paspremier":False,as_: "","index":"",  "params": self.params,"render_collection":self.render_collection,"date":date,"datetime":datetime}
             for wow in mylocals:
                 loc[wow]=mylocals[wow]
             for x in collection:

@@ -21,7 +21,7 @@ class Depense(Model):
         self.dbMonnaie=Monnaie()
         #self.con.close()
     def getallbyuserid(self,myid):
-        self.cur.execute("select monnaie.value as mavaleur,depense.*,country.currency as currency,monpays.currency as monpayscurrency,monpays.name as monpaysname, country.name paysname from depense left join user on user.id = depense.user1_id left join country monpays on monpays.id = user.country_id left join country on country.id = depense.pays2_id left outer join monnaie on monpays.currency like '%' || monnaie.monnaie1 ||'%' and country.currency like '%' || monnaie.monnaie2 || '%'  where depense.user1_id = ?",(myid,))
+        self.cur.execute("select monnaie.value as mavaleur,depense.*,country.currency as currency,country.name as nompays,country.timezone as timezone,monpays.name as nommonpays,monpays.currency as monpayscurrency,monpays.name as monpaysname,monpays.timezone as monpaystimezone, country.name paysname from depense left join user on user.id = depense.user1_id left join country monpays on monpays.id = user.country_id left join country on country.id = depense.pays2_id left outer join monnaie on monpays.currency like '%' || monnaie.monnaie1 ||'%' and country.currency like '%' || monnaie.monnaie2 || '%'  where depense.user1_id = ?",(myid,))
 
         row=self.cur.fetchall()
         return row
