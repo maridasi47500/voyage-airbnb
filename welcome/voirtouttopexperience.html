@@ -1,0 +1,5 @@
+<h1>toute les top experiences</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+<%=render_collection(collection=db.Topexperience.getallbyuserid(session["user_id"]), partial='welcome/_topexperience.html', as_='experience')%>
+</div>

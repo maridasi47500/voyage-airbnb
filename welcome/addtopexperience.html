@@ -1,0 +1,25 @@
+<h3>ajouter une experience top</h3>
+<form action="/createtopexperience" method="post">
+	<input type="hidden" name="user_id" value="<%=session["user_id"]%>" />
+	<div class="field">
+		<label for="user_title">
+			title
+		</label>
+		<input type="text" name="title" value="" id="user_title" />
+	</div>
+	<div class="field">
+		<label for="user_content">
+			content
+		</label>
+		<textarea name="content" id="user_content"></textarea>
+	</div>
+	<div class="field">
+		<label for="user_photo">
+			top experience photo
+		</label>
+		<input type="file" name="photo" value="" id="user_photo" />
+	</div>
+	<div class="actions">
+		<input type="submit" name="valider" value="valider" />
+	</div>
+</form>

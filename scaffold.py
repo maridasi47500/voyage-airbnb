@@ -52,6 +52,7 @@ class {modelname}(Model):
         self.con=sqlite3.connect(self.mydb)
         self.con.row_factory = sqlite3.Row
         self.cur=self.con.cursor()
+        self.tablename=\"{filename}\"
         self.cur.execute(\"\"\"create table if not exists {filename}(
         id integer primary key autoincrement,
 """

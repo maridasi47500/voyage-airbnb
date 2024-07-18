@@ -82,6 +82,8 @@ class Route():
         self.render_figure.set_param("bon",random.choice(["bonnes","mauvaises"]))
 
         return self.render_figure.render_figure("welcome/profil.html")
+    def addtopexperience(self,search):
+        return self.render_figure.render_figure("welcome/addtopexperience.html")
     def adddepense(self,search):
         return self.render_figure.render_figure("welcome/adddepense.html")
     def welcome(self,search):
@@ -236,11 +238,18 @@ class Route():
         myparam=self.get_this_route_param(getparams,params)
         self.render_figure.set_param("photo",self.db.Photo.getbyid(myparam["id"]))
         return self.render_figure.render_figure("welcome/voirphoto.html")
+    def seetopexperience(self,params={}):
+        getparams=("id",)
+        print("get param, action see my new",getparams)
+        myparam=self.get_this_route_param(getparams,params)
+        self.render_figure.set_param("topexperience",self.Topexperience.getbyid(myparam["id"]))
+        return self.render_figure.render_figure("welcome/topexperience.html")
     def seeuser(self,params={}):
         getparams=("id",)
         print("get param, action see my new",getparams)
         myparam=self.get_this_route_param(getparams,params)
-        return self.render_figure.set_param("user",User().getbyid(myparam["id"]))
+        self.render_figure.set_param("user",User().getbyid(myparam["id"]))
+        return self.render_figure.render_figure("user/voir.html")
     def myusers(self,params={}):
         self.render_figure.set_param("users",User().getall())
         return self.render_figure.render_figure("user/users.html")
@@ -314,11 +323,22 @@ class Route():
         return self.render_figure.render_figure("user/signup.html")
     def signin(self,search):
         return self.render_figure.render_figure("user/signin.html")
-    def addpen(self,search):
-        return self.render_figure.render_figure("ajouter/pen.html")
-    def addnotebook(self,search):
-        return self.render_figure.render_figure("ajouter/notebook.html")
+    def voirtouttopexperience(self,search):
+        return self.render_figure.render_figure("welcome/voirtouttopexperience.html")
 
+    def createtopexperience(self,params={}):
+        myparam=self.get_post_data()(params=("title","content","photo"))
+        x=self.db.Topexperience.create(myparam)
+        if x["topexperience_id"]:
+            print("user user1")
+            self.set_notice(x["notice"])
+            self.set_json("{\"redirect\":\"/topexperiences/"+x["topexperience_id"]+"\"}")
+            return self.render_figure.render_json()
+        else:
+            print("user user Non")
+            self.set_notice("erreur pour créer votre top experience ")
+            self.set_json("{\"redirect\":\"/\"}")
+            return self.render_figure.render_json()
     def createdepense(self,params={}):
         myparam=self.get_post_data()(params=("user1_id","pays2_id","ckoi","somme"))
         x=self.db.Depense.create(myparam)
@@ -392,6 +412,9 @@ class Route():
             print("link route ",path)
             ROUTES={
             '^/mesdepenses$': self.mesdepenses,
+            '^/createtopexperience$': self.createtopexperience,
+            '^/voirtouttopexperience$': self.voirtouttopexperience,
+            '^/addtopexperience$': self.addtopexperience,
             '^/adddepense$': self.adddepense,
             '^/aboutme$': self.aboutme,
             '^/sign_in$': self.signin,
@@ -402,6 +425,7 @@ class Route():
             '^/save_user$':self.save_user,
             '^/update_user$':self.update_user,
 
+            "^/seetopexperience/([0-9]+)$":self.seetopexperience,
             "^/seeuser/([0-9]+)$":self.seeuser,
             "^/edituser/([0-9]+)$":self.edit_user,
             "^/deleteuser/([0-9]+)$":self.delete_user,
