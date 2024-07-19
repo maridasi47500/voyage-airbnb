@@ -20,7 +20,7 @@ class Country(Model):
         self.con.commit()
         #self.con.close()
     def getall(self):
-        self.cur.execute("select * from country")
+        self.cur.execute("select * from country order by name")
 
         row=self.cur.fetchall()
         return row

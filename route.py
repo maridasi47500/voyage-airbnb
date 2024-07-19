@@ -84,6 +84,8 @@ class Route():
         return self.render_figure.render_figure("welcome/profil.html")
     def addtopexperience(self,search):
         return self.render_figure.render_figure("welcome/addtopexperience.html")
+    def addisland(self,search):
+        return self.render_figure.render_figure("welcome/addisland.html")
     def adddepense(self,search):
         return self.render_figure.render_figure("welcome/adddepense.html")
     def welcome(self,search):
@@ -326,6 +328,19 @@ class Route():
     def voirtouttopexperience(self,search):
         return self.render_figure.render_figure("welcome/voirtouttopexperience.html")
 
+    def createisland(self,params={}):
+        myparam=self.get_post_data()(params=("user_id","country_id","name"))
+        x=self.db.Island.create(myparam)
+        if x["island_id"]:
+            print("user user1")
+            self.set_notice(x["notice"])
+            self.set_json("{\"redirect\":\"/\"}")
+            return self.render_figure.render_json()
+        else:
+            print("user user Non")
+            self.set_notice("erreur pour créer votre ile ")
+            self.set_json("{\"redirect\":\"/\"}")
+            return self.render_figure.render_json()
     def createtopexperience(self,params={}):
         myparam=self.get_post_data()(params=("title","content","photo"))
         x=self.db.Topexperience.create(myparam)
@@ -413,6 +428,7 @@ class Route():
             ROUTES={
             '^/mesdepenses$': self.mesdepenses,
             '^/createtopexperience$': self.createtopexperience,
+            '^/$addisland': self.addisland,
             '^/voirtouttopexperience$': self.voirtouttopexperience,
             '^/addtopexperience$': self.addtopexperience,
             '^/adddepense$': self.adddepense,

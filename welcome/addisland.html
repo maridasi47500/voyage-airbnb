@@ -1,0 +1,23 @@
+<h3>ajouter un ile</h3>
+<form action="/createisland" method="post">
+	<input type="hidden" name="user_id" value="<%=session["user_id"]%>" />
+	<div class="field">
+		<label for="user_depense">
+			pays de 7 ile
+		</label>
+		<select required id="user_pays" name="country_id">
+			                                                                <option value="">sélectionnez un pays</option>
+											                                                                                    <%=render_collection(collection=db.Country.getall(), partial='welcome/_optioncountry.html', as_='pays')%>
+																					                                                                                                </select>
+	</div>
+	<div class="field">
+		<label for="user_island">
+			nom ile
+		</label>
+		<input type="text" name="name" value="" id="user_island" />
+
+	</div>
+	<div class="actions">
+		<input type="submit" name="valider" value="valider" />
+	</div>
+</form>

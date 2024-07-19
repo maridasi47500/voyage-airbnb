@@ -2,7 +2,7 @@ import sqlite3
 import sys
 class Model():
         mydb=db="myFileDb.db"
-        con=sqlite3.connect(self.mydb)
+        con=sqlite3.connect(mydb)
         tablename="mytablename"
         def __init__(self):
             print("ok")
