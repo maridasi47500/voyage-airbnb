@@ -1,22 +1,38 @@
-<h3>ajouter une region</h3>
-<form action="/createregion" method="post">
+<h3>ajouter un stuff</h3>
+<form action="/createstuff" method="post">
 	<input type="hidden" name="user_id" value="<%=session["user_id"]%>" />
 	<input type="hidden" name="lat" id="lat" />
 	<input type="hidden" name="lon" id="lon" />
 	<div class="field">
-		<label for="user_ile">
-			ile
+		<label for="user_region">
+		region	
 		</label>
-		<select required id="user_region" name="island_id">
-			                                                                <option value="">sélectionnez une ile</option>
-											                                                                                    <%=render_collection(collection=db.Island.getall(), partial='welcome/_optionisland.html', as_='island')%>
+		<select required id="user_region" name="region_id">
+			                                                                <option value="">sélectionnez une region</option>
+											<%=render_collection(collection=db.Region.getall(), partial='welcome/_optionregion.html', as_='island',mylocals={"region_id":params["region_id"]})%>
 																					                                                                                                </select>
 	</div>
 	<div class="field">
-		<label for="user_region">
-			nom region
+		<label for="user_stuff">
+			nom stuff
 		</label>
-		<input type="text" name="name" value="" id="user_region" />
+		<input type="text" name="title" value="" id="user_stuff" />
+
+	</div>
+	<div class="field">
+		<label for="user_description">
+			description
+		</label>
+		<div id="ajouteheur">
+		<input form="otherform" type="time" id="time1" />
+		- 
+		<input form="otherform" type="time" id="time2" />
+		<button onclick="user_description.value+='&#128357;'+' '+String(time1.value)+' '+String(time2.value);" type="button">&#128357; ajouter lhoraire</button>
+		</div>
+		<div id="ajouteprix">
+			<button onclick=""> ajouter le prix</button>
+		</div>
+		<textarea name="name" id="user_description"></textarea>
 
 	</div>
 	<div class="actions">

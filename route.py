@@ -245,8 +245,9 @@ class Route():
         self.render_figure.set_param("region",self.Region.getbyid(myparam["id"]))
         return self.render_figure.render_figure("welcome/seeregion.html")
     def addstuff(self,params={}):
-        myparam=self.get_this_route_param(getparams=("stuff",),params)
+        myparam=self.get_this_route_param(getparams=("stuff","region_id",),params)
         self.render_figure.set_param("stuff",myparam["stuff"])
+        self.render_figure.set_param("region_id",myparam["region_id"])
         return self.render_figure.render_figure("welcome/addstuff.html")
     def seeisland(self,params={}):
         myparam=self.get_this_route_param(getparams=("id",),params)
