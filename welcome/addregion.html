@@ -1,0 +1,30 @@
+<h3>ajouter une region</h3>
+<form action="/createregion" method="post">
+	<input type="hidden" name="user_id" value="<%=session["user_id"]%>" />
+	<input type="hidden" name="lat" id="lat" />
+	<input type="hidden" name="lon" id="lon" />
+	<div class="field">
+		<label for="user_ile">
+			ile
+		</label>
+		<select required id="user_region" name="island_id">
+			                                                                <option value="">sélectionnez une ile</option>
+											                                                                                    <%=render_collection(collection=db.Island.getall(), partial='welcome/_optionisland.html', as_='island')%>
+																					                                                                                                </select>
+	</div>
+	<div class="field">
+		<label for="user_region">
+			nom region
+		</label>
+		<input type="text" name="name" value="" id="user_region" />
+
+	</div>
+	<div class="actions">
+		<input type="submit" name="valider" value="valider" />
+	</div>
+</form>
+<div id="imap">
+			    <div id="map" onclick="onMapClick(event);">
+				    			            <!-- Ici s'affichera la carte -->
+								    				        </div>
+														</div>

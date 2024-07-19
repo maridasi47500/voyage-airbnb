@@ -18,7 +18,7 @@ class Island(Model):
         self.con.commit()
         #self.con.close()
     def getall(self):
-        self.cur.execute("select * from island")
+        self.cur.execute("select * from island order by name")
 
         row=self.cur.fetchall()
         return row
@@ -28,6 +28,10 @@ class Island(Model):
         job=self.cur.fetchall()
         self.con.commit()
         return None
+    def getallbyuserid(self,myid):
+        self.cur.execute("select island.*,country.name as pays from island left join country on country.id = island.country_id where island.user_id = ?",(myid,))
+        job=self.cur.fetchall()
+        return job
     def getbyid(self,myid):
         self.cur.execute("select * from island where id = ?",(myid,))
         row=dict(self.cur.fetchone())

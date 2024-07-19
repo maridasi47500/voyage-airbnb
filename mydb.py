@@ -6,6 +6,8 @@ from song import Song
 from chercherimage import Chercherimage
 from depense import Depense
 from topexperience import Topexperience
+from island import Island
+from region import Region
 class Mydb():
   def __init__(self):
     print("hello")
@@ -17,3 +19,5 @@ class Mydb():
     self.Chercherimage=Chercherimage
     self.Depense=Depense()
     self.Topexperience=Topexperience()
+    self.Island=Island()
+    self.Region=Region()
