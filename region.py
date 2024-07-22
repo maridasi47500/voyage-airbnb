@@ -30,6 +30,10 @@ class Region(Model):
         job=self.cur.fetchall()
         self.con.commit()
         return None
+    def getallbyislandid(self,myid):
+        self.cur.execute("select region.*,island.name as ile,country.name as pays from region left join island on island.id = region.island_id left join country on country.id = island.country_id where island.id = ?",(myid,))
+        row=self.cur.fetchall()
+        return row
     def getbyid(self,myid):
         self.cur.execute("select region.*,island.name as ile,country.name as pays from region left join island on island.id = region.island_id left join country on country.id = island.country_id where region.id = ?",(myid,))
         row=dict(self.cur.fetchone())

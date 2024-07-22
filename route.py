@@ -365,17 +365,17 @@ class Route():
               x=self.db.Shopping.create(myparam)
             case "sleeping":
               x=self.db.Sleeping.create(myparam)
-            case "activities"
+            case "activities":
               x=self.db.Activities.create(myparam)
 
         if x[mytype+"_id"]:
             print("user user1")
             self.set_notice(x["notice"])
-            self.set_json("{\"redirect\":\"/regions/"+str(x["region_id"])+"#stuff"+str(x["stuff_id"])+"\"}")
+            self.set_json("{\"redirect\":\"/regions/"+str(myparam["region_id"])+"#stuff"+str(x[mytype+"_id"])+"\"}")
             return self.render_figure.render_json()
         else:
             print("user user Non")
-            self.set_notice("erreur pour créer une region ")
+            self.set_notice("erreur pour créer une "+mytype)
             self.set_json("{\"redirect\":\"/addregion\"}")
             return self.render_figure.render_json()
     def createregion(self,params={}):

@@ -4,7 +4,8 @@ import sqlite3
 import sys
 import re
 from model import Model
-class Drinking(Model):
+from stuff import Stuff
+class Drinking(Stuff):
     def __init__(self):
         self.con=sqlite3.connect(self.mydb)
         self.con.row_factory = sqlite3.Row

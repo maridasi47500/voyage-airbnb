@@ -1,2 +1,4 @@
-<h1>îles des caraibes</h1>
+<h1>les îles des caraibes</h1>
 <%=render_collection(collection=db.Island.getallbyuserid(session["user_id"]), partial='welcome/_myisland.html', as_='island')%>
+<h1>voir toutes les îles des caraibes</h1>
+<%=render_collection(collection=db.Island.getall(), partial='welcome/_myisland.html', as_='island')%>
