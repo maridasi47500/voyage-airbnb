@@ -15,7 +15,9 @@ class Eating(Model):
             type text,
             name text,
             user_id text,
-            description text
+            description text,
+            lat text,
+            lon text
     , MyTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP                );""")
         self.con.commit()
         #self.con.close()
@@ -54,7 +56,7 @@ class Eating(Model):
         print(myhash,myhash.keys())
         myid=None
         try:
-          self.cur.execute("insert into eating (region_id,type,name,user_id,description) values (:region_id,:type,:name,:user_id,:description)",myhash)
+          self.cur.execute("insert into eating (region_id,type,name,user_id,description,lat,lon) values (:region_id,:type,:name,:user_id,:description,:lat,:lon)",myhash)
           self.con.commit()
           myid=str(self.cur.lastrowid)
         except Exception as e:

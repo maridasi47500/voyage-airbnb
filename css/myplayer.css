@@ -5,6 +5,9 @@ body {
   /* Smoothly transition the background color */
   /*transition: background-color .5s;*/
 }
+main a, main a:visited, main a:link, main a:hover {
+	color:white;
+}
 .buttons > * {
 color:white;
 }

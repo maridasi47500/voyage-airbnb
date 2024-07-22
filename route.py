@@ -60,10 +60,10 @@ class Route():
         print("set session",x)
         self.Program.set_session(x)
         self.render_figure.set_session(self.Program.get_session())
-    def get_this_get_param(self,x,params):
-        print("set session",x)
+    def get_this_get_param(self,getparams,params):
+        print("set session",getparams)
         hey={}
-        for a in x:
+        for a in getparams:
           hey[a]=params[a][0]
         return hey
     def get_this_route_param(self,getparams,params):
@@ -84,6 +84,8 @@ class Route():
         return self.render_figure.render_figure("welcome/profil.html")
     def addtopexperience(self,search):
         return self.render_figure.render_figure("welcome/addtopexperience.html")
+    def addregion(self,search):
+        return self.render_figure.render_figure("welcome/addregion.html")
     def addisland(self,search):
         return self.render_figure.render_figure("welcome/addisland.html")
     def adddepense(self,search):
@@ -245,7 +247,7 @@ class Route():
         self.render_figure.set_param("region",self.db.Region.getbyid(myparam["id"]))
         return self.render_figure.render_figure("welcome/seeregion.html")
     def addstuff(self,params={}):
-        myparam=self.get_this_route_param(getparams=("stuff","region_id",),params=params)
+        myparam=self.get_this_get_param(getparams=("stuff","region_id",),params=params)
         self.render_figure.set_param("stuff",myparam["stuff"])
         self.render_figure.set_param("region_id",myparam["region_id"])
         return self.render_figure.render_figure("welcome/addstuff.html")
@@ -341,6 +343,41 @@ class Route():
     def voirtouttopexperience(self,search):
         return self.render_figure.render_figure("welcome/voirtouttopexperience.html")
 
+    def createstuff(self,params={}):
+        myparam=self.get_post_data()(params=("mytype","type","user_id","region_id","description","name","lat","lon"))
+        mytype=myparam["mytype"]
+        x=None
+        del myparam["mytype"]
+        match mytype:
+            case "sights":
+              x=self.db.Sights.create(myparam)
+            case "drinking":
+              x=self.db.Drinking.create(myparam)
+            case "tour":
+              x=self.db.Tour.create(myparam)
+            case "festivals":
+              x=self.db.Festivals.create(myparam)
+            case "entertainment":
+              x=self.db.Entertainment.create(myparam)
+            case "eating":
+              x=self.db.Eating.create(myparam)
+            case "shopping":
+              x=self.db.Shopping.create(myparam)
+            case "sleeping":
+              x=self.db.Sleeping.create(myparam)
+            case "activities"
+              x=self.db.Activities.create(myparam)
+
+        if x[mytype+"_id"]:
+            print("user user1")
+            self.set_notice(x["notice"])
+            self.set_json("{\"redirect\":\"/regions/"+str(x["region_id"])+"#stuff"+str(x["stuff_id"])+"\"}")
+            return self.render_figure.render_json()
+        else:
+            print("user user Non")
+            self.set_notice("erreur pour créer une region ")
+            self.set_json("{\"redirect\":\"/addregion\"}")
+            return self.render_figure.render_json()
     def createregion(self,params={}):
         myparam=self.get_post_data()(params=("user_id","island_id","name","lat","lon"))
         x=self.db.Region.create(myparam)
@@ -456,7 +493,10 @@ class Route():
             '^/createtopexperience$': self.createtopexperience,
             '^/createisland$': self.createisland,
             '^/createregion$': self.createregion,
+            '^/createstuff$': self.createstuff,
             '^/addisland$': self.addisland,
+            '^/addregion$': self.addregion,
+            '^/addstuff$': self.addstuff,
             '^/voirtouttopexperience$': self.voirtouttopexperience,
             '^/addtopexperience$': self.addtopexperience,
             '^/adddepense$': self.adddepense,

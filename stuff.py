@@ -3,37 +3,44 @@ import sqlite3
 import sys
 import re
 from model import Model
-class Region(Model):
+class Stuff(Model):
     def __init__(self):
         self.con=sqlite3.connect(self.mydb)
         self.con.row_factory = sqlite3.Row
         self.cur=self.con.cursor()
-        self.tablename="region"
-        self.cur.execute("""create table if not exists region(
+        self.tablename="stuff"
+        self.cur.execute("""create table if not exists stuff(
         id integer primary key autoincrement,
-        island_id text,
-        lat text,
-        lon text,
+        region_id text,
+            type text,
+            name text,
             user_id text,
-            name text
+            description text,
+            lat text,
+            lon text
     , MyTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP                );""")
         self.con.commit()
         #self.con.close()
     def getall(self):
-        self.cur.execute("select * from region")
+        self.cur.execute("select * from stuff")
 
         row=self.cur.fetchall()
         return row
     def deletebyid(self,myid):
 
-        self.cur.execute("delete from region where id = ?",(myid,))
+        self.cur.execute("delete from stuff where id = ?",(myid,))
         job=self.cur.fetchall()
         self.con.commit()
         return None
+    def getallbyregionid(self,myid):
+        self.cur.execute("select * from "+self.tablename+" where region_id = ?",(myid,))
+        job=self.cur.fetchall()
+        return job
     def getbyid(self,myid):
-        self.cur.execute("select region.*,island.name as ile,country.name as pays from region left join island on island.id = region.island_id left join country on country.id = island.country_id where region.id = ?",(myid,))
+        self.cur.execute("select * from stuff where id = ?",(myid,))
         row=dict(self.cur.fetchone())
         print(row["id"], "row id")
+        job=self.cur.fetchall()
         return row
     def create(self,params):
         print("ok")
@@ -53,14 +60,14 @@ class Region(Model):
         print(myhash,myhash.keys())
         myid=None
         try:
-          self.cur.execute("insert into region (lat,lon,island_id,user_id,name) values (:lat,:lon,:island_id,:user_id,:name)",myhash)
+          self.cur.execute("insert into stuff (region_id,type,name,user_id,description,lat,lon) values (:region_id,:type,:name,:user_id,:description,:lat,:lon)",myhash)
           self.con.commit()
           myid=str(self.cur.lastrowid)
         except Exception as e:
           print("my error"+str(e))
         azerty={}
-        azerty["region_id"]=myid
-        azerty["notice"]="votre region a été ajouté"
+        azerty["stuff_id"]=myid
+        azerty["notice"]="votre stuff a été ajouté"
         return azerty
 
 

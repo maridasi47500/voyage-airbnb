@@ -8,6 +8,16 @@ from depense import Depense
 from topexperience import Topexperience
 from island import Island
 from region import Region
+#stuff 
+from activities import Activities
+from sights import Sights
+from drinking import Drinking
+from tour import Tour
+from festivals import Festivals
+from entertainment import Entertainment
+from eating import Eating
+from shopping import Shopping
+from sleeping import Sleeping
 class Mydb():
   def __init__(self):
     print("hello")
@@ -21,3 +31,12 @@ class Mydb():
     self.Topexperience=Topexperience()
     self.Island=Island()
     self.Region=Region()
+    self.Activities=Activities()
+    self.Sights=Sights()
+    self.Drinking=Drinking()
+    self.Tour=Tour()
+    self.Festivals=Festivals()
+    self.Entertainment=Entertainment()
+    self.Eating=Eating()
+    self.Shopping=Shopping()
+    self.Sleeping=Sleeping()

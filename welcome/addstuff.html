@@ -14,13 +14,13 @@
 	</div>
 	<div class="field">
 		<label for="user_mytype">
-		region	
+		type of stuff
 		</label>
 		<select required id="user_mytype" name="mytype">
 <option <%="selected" if params["stuff"] == "" else ""%> value="">sélectionnez un type</option>
 <option <%="selected" if params["stuff"] == "sights" else ""%> value="sights">&#9758; add Sight</option>
 <option <%="selected" if params["stuff"] == "drinking" else ""%> value="drinking">&#9758; add drinking & nightlife</option>
-<option <%="selected" if params["stuff"] == "tours" else ""%> value="tours">&#128073; tours</option>
+<option <%="selected" if params["stuff"] == "tour" else ""%> value="tours">&#128073; tours</option>
 <option <%="selected" if params["stuff"] == "festivals" else ""%> value="festivals">&#127776; festival & events</option>
 <option <%="selected" if params["stuff"] == "entertainment" else ""%> value="entertainment">&#11088; entertainment</option>
 <option <%="selected" if params["stuff"] == "eating" else ""%> value="eating">&#127860; add eating</option>
@@ -38,7 +38,7 @@
 	</div>
 	<div class="field">
 		<label for="user_type">
-			type stuff
+			type of stuff 4 me
 		</label>
 		<input type="text" name="type" value="" id="user_type" />
 
@@ -54,7 +54,18 @@
 		<button onclick="user_description.value+='&#128357;'+' '+String(time1.value)+' '+String(time2.value);" type="button">&#128357; ajouter lhoraire</button>
 		</div>
 		<div id="ajouteprix">
-			<button onclick=""> ajouter le prix</button>
+		<input form="otherform" type="number" id="pricevalue" />
+		<select required id="user_price" name="myprice" form="otherform">
+			                                                                <option value="">sélectionnez une monnaie</option>
+											<%=render_collection(collection=db.Country.getall(), partial='welcome/_optionprice.html', as_='price')%>
+																					                                                                                                </select>
+		<select required id="user_user" name="myuser" form="otherform">
+			                                                                <option value="">sélectionnez un user</option>
+			                                                                <option value="enfant">enfant</option>
+			                                                                <option value="adulte">adulte</option>
+																					                                                                                                </select>
+			<button type="button" onclick="user_description.value += String(user_price.value)+' '+String(pricevalue.value)+'/'+String(user_user.value);return false;"> ajouter le prix</button>
+
 		</div>
 		<textarea name="name" id="user_description"></textarea>
 

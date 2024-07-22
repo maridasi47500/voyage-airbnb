@@ -3,7 +3,8 @@ import sqlite3
 import sys
 import re
 from model import Model
-class Activities(Model):
+from stuff import Stuff
+class Activities(Stuff):
     def __init__(self):
         self.con=sqlite3.connect(self.mydb)
         self.con.row_factory = sqlite3.Row
@@ -15,7 +16,9 @@ class Activities(Model):
             type text,
             name text,
             user_id text,
-            description text
+            description text,
+            lat text,
+            lon text
     , MyTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP                );""")
         self.con.commit()
         #self.con.close()
@@ -54,7 +57,7 @@ class Activities(Model):
         print(myhash,myhash.keys())
         myid=None
         try:
-          self.cur.execute("insert into activities (region_id,type,name,user_id,description) values (:region_id,:type,:name,:user_id,:description)",myhash)
+          self.cur.execute("insert into activities (region_id,type,name,user_id,description,lat,lon) values (:region_id,:type,:name,:user_id,:description,:lat,:lon)",myhash)
           self.con.commit()
           myid=str(self.cur.lastrowid)
         except Exception as e:
