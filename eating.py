@@ -3,7 +3,8 @@ import sqlite3
 import sys
 import re
 from model import Model
-class Eating(Model):
+from stuff import Stuff
+class Eating(Stuff):
     def __init__(self):
         self.con=sqlite3.connect(self.mydb)
         self.con.row_factory = sqlite3.Row
