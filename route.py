@@ -241,23 +241,23 @@ class Route():
         self.render_figure.set_param("photo",self.db.Photo.getbyid(myparam["id"]))
         return self.render_figure.render_figure("welcome/voirphoto.html")
     def seeregion(self,params={}):
-        myparam=self.get_this_route_param(getparams=("id",),params)
-        self.render_figure.set_param("region",self.Region.getbyid(myparam["id"]))
+        myparam=self.get_this_route_param(getparams=("id",),params=params)
+        self.render_figure.set_param("region",self.db.Region.getbyid(myparam["id"]))
         return self.render_figure.render_figure("welcome/seeregion.html")
     def addstuff(self,params={}):
-        myparam=self.get_this_route_param(getparams=("stuff","region_id",),params)
+        myparam=self.get_this_route_param(getparams=("stuff","region_id",),params=params)
         self.render_figure.set_param("stuff",myparam["stuff"])
         self.render_figure.set_param("region_id",myparam["region_id"])
         return self.render_figure.render_figure("welcome/addstuff.html")
     def seeisland(self,params={}):
-        myparam=self.get_this_route_param(getparams=("id",),params)
-        self.render_figure.set_param("island",self.Island.getbyid(myparam["id"]))
+        myparam=self.get_this_route_param(getparams=("id",),params=params)
+        self.render_figure.set_param("island",self.db.Island.getbyid(myparam["id"]))
         return self.render_figure.render_figure("welcome/seeisland.html")
     def seetopexperience(self,params={}):
         getparams=("id",)
         print("get param, action see my new",getparams)
         myparam=self.get_this_route_param(getparams,params)
-        self.render_figure.set_param("topexperience",self.Topexperience.getbyid(myparam["id"]))
+        self.render_figure.set_param("topexperience",self.db.Topexperience.getbyid(myparam["id"]))
         return self.render_figure.render_figure("welcome/topexperience.html")
     def seeuser(self,params={}):
         getparams=("id",)

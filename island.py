@@ -33,7 +33,7 @@ class Island(Model):
         job=self.cur.fetchall()
         return job
     def getbyid(self,myid):
-        self.cur.execute("select * from island where id = ?",(myid,))
+        self.cur.execute("select island.*,country.name as pays from island left join country on country.id = island.country_id where island.id = ?",(myid,))
         row=dict(self.cur.fetchone())
         print(row["id"], "row id")
         job=self.cur.fetchall()

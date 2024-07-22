@@ -54,7 +54,7 @@ class Region(Model):
         print(myhash,myhash.keys())
         myid=None
         try:
-            self.cur.execute("insert into region (lat,lon,island_id,user_id,name) values (:lat,:lon,:island_id,:user_id,:name)",myhash)
+          self.cur.execute("insert into region (lat,lon,island_id,user_id,name) values (:lat,:lon,:island_id,:user_id,:name)",myhash)
           self.con.commit()
           myid=str(self.cur.lastrowid)
         except Exception as e:
