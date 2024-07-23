@@ -18,6 +18,12 @@
 <a href="/addstuff?region_id=<%=region["id"]%>&stuff=sights">&#128722; add shopping</a>
 <a href="/addstuff?region_id=<%=region["id"]%>&stuff=sleeping">&#128719; add sleeping</a>
 <a href="/addstuff?region_id=<%=region["id"]%>&stuff=activities">&#127939; add activities, courses & tours</a>
+<div id="imap">
+                            <div id="map" onclick="onMapClick(event);">
+			                                                                        <!-- Ici s'affichera la carte -->
+												                                                                                                        </div>
+
+																									 </div>
 <%allstuff=db.Sights.getallbyregionid(region["id"])%>
 <%="<h2>&#128065; toutes les vues</h2>"+render_collection(collection=allstuff, partial='welcome/_stuff.html', as_='stuff') if len(allstuff) > 0 else ""%>
 <%allstuff=db.Drinking.getallbyregionid(region["id"])%>
@@ -36,3 +42,4 @@
 <%="<h2>&#128719; toutes les sleeping</h2>"+render_collection(collection=allstuff, partial='welcome/_stuff.html', as_='stuff') if len(allstuff) > 0 else ""%>
 <%allstuff=db.Activities.getallbyregionid(region["id"])%>
 <%="<h2>&#127939; toutes les activités</h2>"+render_collection(collection=allstuff, partial='welcome/_stuff.html', as_='stuff') if len(allstuff) > 0 else ""%>
+
