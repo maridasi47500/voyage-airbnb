@@ -59,9 +59,10 @@ const LeafIcon = L.Icon.extend({
 
                                                                                                                                                                                                       $(document).ready(function(){
                                                                                                                                                                                                               initMap();
-                                              if (window.location.pathname==="/"){
+                                              if (window.location.pathname.includes("/regions/")){
+                                              var myid=window.location.pathname.split1("/regions/")[1];
 						      $.ajax({
-							      url:"/voirtoutcequejaiajoute",
+							      url:"/voirtoutcequejaiajoute?myid="+String(myid),
 							      success: function(data){
 								      var latlng,marker,tout=data.tout,hey,mypopup,icon;
 								      for(var i=0;i<tout.length;i++){

@@ -342,7 +342,14 @@ class Route():
         return self.render_figure.render_figure("user/signin.html")
     def voirtouttopexperience(self,search):
         return self.render_figure.render_figure("welcome/voirtouttopexperience.html")
-
+    def voirtoutcequejaiajoute(self,data):
+        print("tout")
+        regionid=data["myid"][0]
+        tout=self.db.Sights.getall1(regionid)+self.db.Tour.getall1(regionid)+self.db.Activities.getall1(regionid)+self.db.Shopping.getall1(regionid)+self.dbSleeping.getall1(regionid)+self.db.Drinking.getall1(regionid)+self.db.Festivals.getall1(regionid)+self.db.Entertainment.getall1(regionid)
+        print("tout")
+        print(tout,"tout")
+        self.render_figure.set_param("tout",tout)
+        return self.render_json("welcome","stuff.json")
     def createstuff(self,params={}):
         myparam=self.get_post_data()(params=("mytype","type","user_id","region_id","description","name","lat","lon"))
         mytype=myparam["mytype"]
@@ -505,6 +512,7 @@ class Route():
             '^/sign_up$': self.signup,
             '^/logmeout$':self.logout,
             '^/signup$':self.save_user,
+            '^/voirtoutcequejaiajoute$':self.voirtoutcequejaiajoute,
             '^/createdepense$':self.createdepense,
             '^/save_user$':self.save_user,
             '^/update_user$':self.update_user,

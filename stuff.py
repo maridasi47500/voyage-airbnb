@@ -21,6 +21,11 @@ class Stuff(Model):
     , MyTimestamp DATETIME DEFAULT CURRENT_TIMESTAMP                );""")
         self.con.commit()
         #self.con.close()
+    def getall1(self,myid):
+        self.cur.execute("select "+self.tablename+".*, '"+self.tablename+"' as stuff from "+self.tablename+" where "+self.tablename+".region_id = ?", (myid,))
+
+        row=self.cur.fetchall()
+        return row
     def getall(self):
         self.cur.execute("select * from stuff")
 
