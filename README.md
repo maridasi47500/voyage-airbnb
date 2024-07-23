@@ -6,6 +6,17 @@
 ```
 $ python3 addcountry.py
 ```
+- chercher des pics (transparentes) pour être dans mypic/+nom pic +".png" :
+* activities
+* drinking
+* eating
+* entertainment
+* festivals
+* shopping
+* sights
+* sleeping
+* tour
+
 -lancer
 ```
 $ sh mysite.sh

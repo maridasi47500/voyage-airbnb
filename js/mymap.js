@@ -60,7 +60,7 @@ const LeafIcon = L.Icon.extend({
                                                                                                                                                                                                       $(document).ready(function(){
                                                                                                                                                                                                               initMap();
                                               if (window.location.pathname.includes("/regions/")){
-                                              var myid=window.location.pathname.split1("/regions/")[1];
+                                              var myid=window.location.pathname.split("/regions/")[1];
 						      $.ajax({
 							      url:"/voirtoutcequejaiajoute?myid="+String(myid),
 							      success: function(data){
